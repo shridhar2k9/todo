@@ -1,7 +1,5 @@
-<?php
-  mysql_connect("localhost","root","");
-  mysql_select_db("practise");
- 
+ <?php
+ include "include/dbconfig.php";
    
   $action=$_POST["action"];
  
@@ -9,19 +7,37 @@
      $show=mysql_query("Select * from todo;");
  
      while($row=mysql_fetch_array($show)){
-        echo "<div id="list"><b>$row[name]</b></div>";
+        echo "<div id='disp'> <input type='checkbox' id='check' name='check' value='".$row['id']."' /><b>$row[name]</b></div>";
+
      }
   }
-  else if($action=="addcomment"){
+
+  else if($action=="addcomment")
+  {
     $name=$_POST["name"];
- 
+if($name=="")
+{
+      alert("Please enter TO-Do datails"); 
+  
+}
+ else
+ {
      $query=mysql_query("INSERT INTO todo(name) values('$name') ");
- 
-     if($query){
-        echo "Your comment has been sent";
-     }
-     else{
-        echo "Error in sending your comment";
-     }
-  }
+
+ }
+}
+else if($action=="deletecomment")
+{
+  $id=$_POST["id"];
+  if($id=="")
+{
+      alert("Please enter TO-Do datails"); 
+  
+}
+ else
+ {
+     $query=mysql_query("DELETE FROM   todo where id='$id' ");
+
+ }
+}
 ?>
