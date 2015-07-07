@@ -1,0 +1,51 @@
+h2 {
+    font-family:cursive;
+    text-align: center;
+    margin-top: 50px;
+}
+form {
+    display: inline-block;
+}
+
+#button{
+    display: inline-block;
+    height:30px;
+	width:150px;
+	background-color:#002937;
+	font-family:arial;
+	font-weight:bold;
+	color:#ffffff;
+	border-radius: 5px;
+	text-align:center;
+	margin-top: 100px;
+}
+
+.list {
+	font-family:garamond;
+	color:#cc0000;
+}
+.item{
+	width:400px;
+	height:50px;
+	background: #bcbcbc;
+	margin-top: 10px;
+	margin-left: 500px;
+	border-radius: 5px;
+	font-family:cursive;
+	position: relative;
+	background-image: index.jpg;
+}
+.checkListItem{
+	margin-top: 10px;
+	margin-left: 500px;
+	width:400px;
+	height:50px;
+	font-family:cursive;
+}
+.img{
+	width:30px;
+	height:30px;
+	margin-top: -23px;
+	margin-left: 350px;
+	position: relative;	
+}
