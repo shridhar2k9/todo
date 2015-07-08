@@ -1,106 +1,92 @@
 <html>
    <head>
    <link href="css/style.css" typ="text/css" rel="stylesheet">
-       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-        
-       <script type="text/javascript">
-               $(document).ready(function(){
-
-                   function c(msg){
-                    console.log(msg);
-                   }
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+//console log function
+              function console_func(msg)
+              {
+                console.log(msg);
+              }
  
-                    function showComment(){
-                      $.ajax({
-                        type:"post",
-                        url:"todo.php",
-                        data:"action=showcomment",
-                        success:function(data){
-                             $("#comment").html(data);
-                        }
+              function showComment()
+              {
+                $.ajax({
+                type:"post",
+                url:"todo.php",
+                data:"action=showcomment",
+                success:function(data)
+                {
+                    $("#comment").html(data);
+                }
                       });
-                    }
- 
-                    showComment();
- 
- 
-                    $("#load").submit(function(e) {
-                      
-                      e.preventDefault();
-
-                        
-                          var name=$("#name").val();
-                        
-                          $.ajax({
+              }
+              showComment();
+ //ajax call to submit data
+              $("#load").submit(function(e) 
+              {
+                e.preventDefault();
+                var name=$("#name").val();
+                    $.ajax({
                               type:"post",
                               url:"todo.php",
                               data:"name="+name+"&action=addcomment",
-                              success:function(data){
+                              success:function(data)
+                              {
                                 showComment();
-                                  
                               }
  
                           });
-                        
- 
-                    });
-
-                    $("#delete").click(function(){
-                      ids=new Array()
-                      a=0;
-                    $("input.chk:checked").each(function(){
-                                  ids[a]=$(this).val();
-                           a++;
-                      });
-                    c(ids); 
-
-                  if(confirm("Are you sure want to delete?")){
+              });
+//ajax call to delete the checked items
+              $("#delete").click(function()
+              {
+                var ids = [];
+                a=0;
+                $('input[name="check"]:checked').each(function()
+                {
+                    ids.push(this.value);
+                });
                     $.ajax({
-                            type:"post",
-                            url:"todo.php",
-                            data:"id="+ids+"&action=deletecomment",
-                            success:function(res)
-                            {
-                             if(res==1)
+                              type:"post",
+                              url:"todo.php",
+                              data:"id="+ids[a]+"&action=deletecomment",
+                              success:function(data)
                               {
-                                  $("input.chk:checked").each(function(){
-                                  $(this).parent().parent().remove();
-                                  })
+                                console_func(ids);
+                                showComment();
                               }
-                            }
-                          })
-                        }
-                  return false;
-                    })
-              
-               });
-       </script>
-   </head>
- 
-   <body>
-   <div class="col-md-12">
-   <div class="col-md-4"></div>
-   <div class="col-md-4 bg-primary">
-   
-
-        <form id="load" class="">
-               <input type="text" class="text-center form-control input-lg" name="name" id="name"/>
-               </br>
+                          });
+                        return false;
+                });
+//line through the checked items
+              $( "#comment" ).click(function() 
+                {
+                  $(this).css("text-decoration", "line-through");
+                  $(this).css("font-size", "20px");
+                });
                     
-               
-               <div id="comment"  ></div>
-               <input type="button" value="DELETE" id="delete" name="" class="btn btn-danger pull-right" />
+                });
+              
+       </script>
+</head>
+ 
+   <body class="padding_top">
+       <div class="col-md-12">
+         <div class="col-md-4 "></div>
+            <div class="col-md-4 border" style="background-color:#33CCCC"><div class="text-center h3 ">TO-DO</div>
+                <form id="load" class="">
+                    <input type="text" class="text-center form-control input-lg" name="name" id="name"/>
+               </br>
+               <div id="comment"></div>
+               <input type="button" value="DELETE" id="delete" name="" class="btn btn-danger center-block" />
 
-        </form>
-</div>
-<div class="col-md-4 "></div>
+                </form>
     </div>
+      <div class="col-md-4 "></div>
+        </div>
    </body>
 </html>
